@@ -29,10 +29,10 @@ fi
 BASE=`pwd`
 SUBPATH="${FILEPATH:${#BASE}}"
 
-REPO_URL=$(git remote show origin | grep 'Fetch URL:' | cut -c 14- | sed -e 's|git@||' -e 's|:|/|' -e 's|.git||')
+REPO_URL=$(git remote -v | grep fetch | awk -F ' ' '{print $2}')
 BRANCH=$(git branch | cut -c 3-)
 
 URL="https://$REPO_URL/blob/${BRANCH}${SUBPATH}#L${LINE0}-L${LINE1}"
 URL=$(echo $URL | sed -e 's| |%20|g')
-echo $URL
-#open $URL
+#echo $URL
+open $URL
